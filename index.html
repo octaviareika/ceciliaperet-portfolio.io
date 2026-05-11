@@ -8,7 +8,12 @@
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center font-sans antialiased">
 
-  <main class="bg-slate-800/50 backdrop-blur-sm p-10 rounded-3xl shadow-2xl border ">
+  <main class="relative bg-slate-800/50 backdrop-blur-sm p-10 rounded-3xl shadow-2xl border border-slate-700/50">
+
+    <div class="absolute top-5 right-5 flex items-center gap-1.5 text-xs font-medium text-slate-400 bg-slate-900/50 px-3 py-1.5 rounded-full border border-slate-700/50 shadow-inner group cursor-default transition-colors hover:bg-slate-800">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400 group-hover:text-indigo-300 transition-colors"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span class="contador tracking-wide">...</span>
+    </div>
     
     <img src="./public/cecilia.jpeg" class="w-32 h-32 rounded-full object-cover mx-auto mb-6 shadow-lg group-hover:scale-105 transition-transform duration-300 border-4 border-indigo-500/30">
 
@@ -27,5 +32,20 @@
 
   </main>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fazemos a chamada para a API de contador gratuita
+      fetch("https://api.counterapi.dev/v1/ceciliaperet/portfolio/up")
+        .then(resposta => resposta.json())
+        .then(dados => {
+          const contadorEl = document.querySelector(".contador");
+          if (contadorEl) {
+            // Atualiza o texto com o número de visitas retornado
+            contadorEl.innerText = dados.count + " visitas";
+          }
+        })
+        .catch(erro => console.error("Erro ao carregar o contador:", erro));
+    });
+  </script>
 </body>
 </html>
